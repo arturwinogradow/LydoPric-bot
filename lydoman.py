@@ -1238,3 +1238,4 @@ application.run_polling()
 
 # Регистрируем обработчик для всех запросов после завершения работы бота
 application.add_handler(MessageHandler(filters.ALL, handle_all_messages))
+
