@@ -10,6 +10,24 @@ import time
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, ForceReply
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
+from flask import Flask
+import threading
+
+# Простой веб-сервер для Render
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_web():
+    app.run(host='0.0.0.0', port=10000)
+
+# Запускаем веб-сервер в отдельном потоке
+web_thread = threading.Thread(target=run_web)
+web_thread.daemon = True
+web_thread.start()
+
 # Настройка логирования
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -1238,4 +1256,5 @@ application.run_polling()
 
 # Регистрируем обработчик для всех запросов после завершения работы бота
 application.add_handler(MessageHandler(filters.ALL, handle_all_messages))
+
 
