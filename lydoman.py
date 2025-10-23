@@ -1254,7 +1254,16 @@ application.add_handler(admin_handler)
 logger.info("Бот запущен.")
 application.run_polling()
 
+# Добавь после application.run_polling()
+
+import time
+
+# Бесконечный цикл чтобы Worker не останавливался
+while True:
+    time.sleep(10)  # Ждет 10 секунд
+    
 # Регистрируем обработчик для всех запросов после завершения работы бота
 application.add_handler(MessageHandler(filters.ALL, handle_all_messages))
+
 
 
